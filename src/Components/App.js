@@ -17,7 +17,7 @@ function App() {
                     
                     <div className="profile__list">
                         <div className="profile__list-line">
-                            <h1 className="profile__name"></h1>
+                            <h1 className="profile__name">Pavel</h1>
                             <button className="profile__edit-button" type="button"></button>
                         </div>
                         <p className="profile__activity"></p>
