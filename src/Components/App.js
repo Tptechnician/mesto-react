@@ -1,40 +1,17 @@
-import headerlogo from '../images/header-logo.svg';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+
 
 function App() {
   return (
     <body className="root">
-    <div className="page">
+      <div className="page">
+        <Header />
+        <Main />
+        <Footer />
 
-        <header className="header">
-            <img className="header__logo" src={headerlogo} alt="лого"/>
-        </header>
-
-        <main className="content">
-            <section className="profile">
-                <div className="profile__info">
-                    <button className="profile__avatar-button" type="button"></button>
-                    <img className="profile__avatar" src="#" alt="аватар"/>
-                    
-                    <div className="profile__list">
-                        <div className="profile__list-line">
-                            <h1 className="profile__name">Pavel</h1>
-                            <button className="profile__edit-button" type="button"></button>
-                        </div>
-                        <p className="profile__activity"></p>
-                    </div>
-                </div>
-                <button className="profile__add-button" type="button"></button>
-            </section>
-
-            <section className="elements">
-                <ul className="elements__cards">
-                </ul>
-            </section>
-        </main>
-
-        <footer className="footer">
-            <p className="footer__copyright">&copy;2022. Павел Дёмин</p>
-        </footer>
+        
         <div className="popup popup_type_profile">
             <div className="popup__content">
                 <button className="popup__close" type="button"></button>
