@@ -13,22 +13,28 @@ function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = React.useState(false);
-  
+  const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
   
   function handleEditProfileClick() {
     setEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
-
+  
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
-
+  
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(!isAddPlacePopupOpen);
   }
-
-  function handleDeleteCardClick() {
+  // Заготовка для popup удаления карточки
+  /*function handleDeleteCardClick() {
     setDeletePopupOpen(!isDeletePopupOpen);
+  }*/
+
+  function handleCardClick (card) {
+    setSelectedCard(card);
+    setImagePopupOpen(true);
   }
 
   function closeAllPopups() {
@@ -36,16 +42,19 @@ function App() {
     setEditAvatarPopupOpen(false);
     setAddPlacePopupOpen(false);
     setDeletePopupOpen(false);
+    setImagePopupOpen(false);
+    setTimeout(()=>setSelectedCard({}), 1000);
+    ;
   }
   
   return (
-    <body className="root">
       <div className="page">
         <Header />
         <Main 
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
         <PopupWithForm
@@ -61,8 +70,8 @@ function App() {
             name="inputname" 
             id="input-name"
             placeholder="Имя"
-            minlength="2"
-            maxlength="40"
+            minLength="2"
+            maxLength="40"
             required
           />
           <span className="popup__form-error" id="input-name-error"></span>
@@ -72,8 +81,8 @@ function App() {
             name="inputactivity" 
             id="input-activity"
             placeholder="О себе"
-            minlength="2"
-            maxlength="200"
+            minLength="2"
+            maxLength="200"
             required
           />
           <span className="popup__form-error" id="input-activity-error"></span>
@@ -92,8 +101,8 @@ function App() {
             name="inputtitle"
             id="input-title"
             placeholder="Название"
-            minlength="2"
-            maxlength="30"
+            minLength="2"
+            maxLength="30"
             required
           />
           <span className="popup__form-error" id="input-title-error"></span>
@@ -134,7 +143,11 @@ function App() {
           buttonText='Да'
         />
 
-        <ImagePopup/>
+        <ImagePopup
+          isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
+          card={selectedCard}
+        />
         <template className="element-template">
             <li className="element">
                 <button className="element__delete-button" type="button"></button>
@@ -150,7 +163,6 @@ function App() {
             </li>
         </template>
     </div>
-</body>
   );
 }
 
