@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 
-
 function Main(props) {
-  const [userName, setUserName] = useState([]);
-  const [userDescription , setUserDescription ] = useState([]);
-  const [userAvatar, setUserAvatar] = useState([]);
+  const [userDescription , setUserDescription ] = useState('');
+  const [userAvatar, setUserAvatar] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userId, setUserId] = useState('');
   const [cards, setCards] = useState([]);
-  const [userId, setUserId] = useState([]);
 
   useEffect(()=>{
     api.getUserData()
