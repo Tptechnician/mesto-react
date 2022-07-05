@@ -12,9 +12,9 @@ function Main(props) {
   useEffect(()=>{
     api.getUserData()
       .then(([userData, cardsData]) => {
-        setUserName( userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
+        setUserName( userData.name);
         setUserId(userData._id);
         setCards(cardsData);
     }).catch((err) => {
@@ -26,33 +26,32 @@ function Main(props) {
     <main className="content">
       <section className="profile">
         <div className="profile__info">
-            <button 
-              className="profile__avatar-button"
-              type="button"
-              onClick={props.onEditAvatar}
+          <button 
+            className="profile__avatar-button"
+             type="button"
+            onClick={props.onEditAvatar}
+          >
+          </button>
+          <img className="profile__avatar" src={`${userAvatar}`} alt="аватар"/>
+          <div className="profile__list">
+            <div className="profile__list-line">
+              <h1 className="profile__name">{`${userName}`}</h1>
+              <button
+                className="profile__edit-button"
+                type="button"
+                onClick={props.onEditProfile}
               >
-            </button>
-            <img className="profile__avatar" src={`${userAvatar}`} alt="аватар"/>
-
-            <div className="profile__list">
-              <div className="profile__list-line">
-                <h1 className="profile__name">{`${userName}`}</h1>
-                <button
-                  className="profile__edit-button"
-                  type="button"
-                  onClick={props.onEditProfile}
-                  >
-                </button>
-              </div>
-              <p className="profile__activity">{`${userDescription}`}</p>
+              </button>
             </div>
+            <p className="profile__activity">{`${userDescription}`}</p>
+          </div>
         </div>
-            <button
-              className="profile__add-button"
-              type="button"
-              onClick={props.onAddPlace}
-              >
-            </button>
+        <button
+          className="profile__add-button"
+          type="button"
+          onClick={props.onAddPlace}
+        >
+        </button>
       </section>
 
       <section className="elements">
@@ -62,7 +61,7 @@ function Main(props) {
               key={card._id}
               card={card}
               onCardClick={props.onCardClick}
-            />)
+              />)
             })}
         </ul>
       </section>

@@ -14,9 +14,8 @@ function Card(props) {
           alt={`${props.card.name}`}
           onClick={handleClick}
         />
-        <div className="element__wraper">
+      <div className="element__wraper">
         <h2 className="element__description">{`${props.card.name}`}</h2>
-
         <div className="element__like-wraper">
           <button className="element__like-button" type="button"></button>
           <p className="element__like-count">{`${props.card.likes.length}`}</p>
