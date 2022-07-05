@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../utils/Api.js';
-import Cards from './Cards.js';
+import Card from './Card.js';
 
 
 function Main(props) {
@@ -59,7 +59,7 @@ function Main(props) {
       <section className="elements">
         <ul className="elements__cards">
           {cards.map((card) => {
-            return (<Cards
+            return (<Card
               key={card._id}
               card={card}
               onCardClick={props.onCardClick}
