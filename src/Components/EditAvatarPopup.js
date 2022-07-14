@@ -5,7 +5,6 @@ function EditAvatarPopup(props) {
 
   const textInput = React.useRef();
   function handleClick() {
-    
     return textInput.current.value;
   }
   
