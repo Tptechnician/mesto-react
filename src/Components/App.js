@@ -4,6 +4,7 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import PopupWithForm from './PopupWithForm.js';
+import EditProfilePopup from './EditProfilePopup.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/Api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -44,11 +45,6 @@ function App() {
     setIsDeletePopupOpen(!isDeletePopupOpen);
   }*/
 
-  function handleCardClick (card) {
-    setSelectedCard(card);
-    setIsImagePopupOpen(true);
-  }
-
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
@@ -57,6 +53,22 @@ function App() {
     setIsImagePopupOpen(false);
     setTimeout(()=>setSelectedCard({}), 1000);
   }
+
+  function handleCardClick (card) {
+    setSelectedCard(card);
+    setIsImagePopupOpen(true);
+  }
+
+  function handleUpdateUser(data) {
+      api.setUserInfo(data)
+        .then((userData) => {
+          setCurrentUser(userData);
+          closeAllPopups();
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
+
   
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -69,37 +81,13 @@ function App() {
           onCardClick={handleCardClick}
         />
         <Footer />
-        <PopupWithForm
+        
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          name='profile'
-          title='Редактировать профиль'
-          buttonText='Сохранить'
-        >
-          <input 
-            className="popup__input" 
-            type="text" 
-            name="inputname" 
-            id="input-name"
-            placeholder="Имя"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="popup__form-error" id="input-name-error"></span>
-          <input 
-            className="popup__input" 
-            type="text" 
-            name="inputactivity" 
-            id="input-activity"
-            placeholder="О себе"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span className="popup__form-error" id="input-activity-error"></span>
-        </PopupWithForm>
-       
+          onUpdateUser={handleUpdateUser}
+        />
+
         <PopupWithForm
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}

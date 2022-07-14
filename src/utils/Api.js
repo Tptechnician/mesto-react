@@ -84,8 +84,8 @@ export class Api {
       headers: this._headers,
       method: 'PATCH',
       body: JSON.stringify({
-        name: data.inputname, 
-        about: data.inputactivity
+        name: data.name, 
+        about: data.about
       })
     }).then(this._getResponseData);
   }
