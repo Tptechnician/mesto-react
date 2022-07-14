@@ -10,27 +10,35 @@ export class Api {
         return Promise.reject(`Ошибка: ${res.status}`); 
     }
     return res.json();
-  } 
+  }
 
   //Запрос на удаление карточки
-  deleteCard(data) {
-    return fetch(`${this._url}/cards/${data._id}`, {
+  deleteCard(id) {
+    return fetch(`${this._url}/cards/${id}`, {
       headers: this._headers,
       method: 'DELETE'
     }).then(this._getResponseData);
   }
+  
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return this.deleteLike(id);
+    } else {
+      return this.addLike(id);
+    }
+  }
 
   //Запрос на удаление лайка
-  deleteLike(data){
-    return fetch(`${this._url}/cards/likes/${data._id}`, {
+  deleteLike(id){
+    return fetch(`${this._url}/cards/likes/${id}`, {
       headers: this._headers,
       method: 'DELETE'
     }).then(this._getResponseData);
   }
 
   //Запрос на добавление лайка
-  addLike(data){
-    return fetch(`${this._url}/cards/likes/${data._id}`, {
+  addLike(id){
+    return fetch(`${this._url}/cards/likes/${id}`, {
       headers: this._headers,
       method: 'PUT'
     }).then(this._getResponseData);
