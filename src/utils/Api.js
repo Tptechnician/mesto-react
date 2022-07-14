@@ -96,7 +96,7 @@ export class Api {
       headers: this._headers,
       method: 'PATCH',
       body: JSON.stringify({
-        avatar: data.inputlink
+        avatar: data.avatar
       })
     }).then(this._getResponseData);
   }
