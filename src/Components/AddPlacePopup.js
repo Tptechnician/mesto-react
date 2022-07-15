@@ -19,6 +19,8 @@ function AddPlacePopup(props) {
       link: link,
       name: title
     });
+    setLink('');
+    setTitle('');
   }
 
   return (
@@ -50,6 +52,7 @@ function AddPlacePopup(props) {
         id="input-link"
         placeholder="Ссылка на картинку"
         required
+        value={link || ''}
         onChange={handleChangeLink}
       />
       <span className="popup__form-error" id="input-link-error"></span>
