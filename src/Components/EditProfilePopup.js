@@ -4,8 +4,8 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const [name, setName] = React.useState(' ');
+  const [description, setDescription] = React.useState(' ');
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -40,7 +40,7 @@ function EditProfilePopup(props) {
       <input 
         className="popup__input" 
         type="text" 
-        value={name || ''}
+        value={name || ' '}
         name="inputname" 
         id="input-name"
         placeholder="Имя"
@@ -53,7 +53,7 @@ function EditProfilePopup(props) {
       <input 
         className="popup__input" 
         type="text" 
-        value={description || ''}
+        value={description || ' '}
         name="inputactivity" 
         id="input-activity"
         placeholder="О себе"

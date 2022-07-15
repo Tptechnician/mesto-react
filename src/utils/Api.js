@@ -47,8 +47,8 @@ export class Api {
   //Запрос на добовление карточек
   addCard(data){
     const dataCard = {
-      name: data.inputtitle,
-      link: data.inputlink
+      name: data.name,
+      link: data.link
     };
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
