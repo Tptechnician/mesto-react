@@ -4,29 +4,21 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState(' ');
-  const [description, setDescription] = React.useState(' ');
+  const [formValues, setFormValues] = React.useState({name: '', about: ''});
 
-  function handleChangeName(e) {
-    setName(e.target.value);
+  function handleChange(e) {
+    const {name, value} = e.target;
+    setFormValues(prevState => ({ ...prevState, [name]: value }));
   }
-
-  function handleChangeDescription(e) {
-    setDescription(e.target.value);
-  }
-
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUser({
-      name: name,
-      about: description
-    });
+    props.onUpdateUser(formValues);
   }
+
+  React.useEffect(() => {
+    setFormValues({name: currentUser.name, about: currentUser.about});
+  }, [currentUser, props.isOpen]);
 
   return (
     <PopupWithForm
@@ -40,27 +32,27 @@ function EditProfilePopup(props) {
       <input 
         className="popup__input" 
         type="text" 
-        value={name || ' '}
-        name="inputname" 
+        value={formValues.name || ' '}
+        name="name" 
         id="input-name"
         placeholder="Имя"
         minLength="2"
         maxLength="40"
         required
-        onChange={handleChangeName}
+        onChange={handleChange}
       />
       <span className="popup__form-error" id="input-name-error"></span>
       <input 
         className="popup__input" 
         type="text" 
-        value={description || ' '}
-        name="inputactivity" 
+        value={formValues.about || ' '}
+        name="about" 
         id="input-activity"
         placeholder="О себе"
         minLength="2"
         maxLength="200"
         required
-        onChange={handleChangeDescription}
+        onChange={handleChange}
       />
       <span className="popup__form-error" id="input-activity-error"></span>
     </PopupWithForm>

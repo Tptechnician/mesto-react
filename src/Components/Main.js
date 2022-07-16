@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import api from '../utils/Api.js';
 import Card from './Card.js';
 
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  
-
-  
-
-  
 
   return (
     <main className="content">
@@ -21,10 +15,10 @@ function Main(props) {
             onClick={props.onEditAvatar}
           >
           </button>
-          <img className="profile__avatar" src={`${currentUser.avatar}`} alt="аватар"/>
+          <img className="profile__avatar" src={currentUser.avatar} alt="аватар"/>
           <div className="profile__list">
             <div className="profile__list-line">
-              <h1 className="profile__name">{`${currentUser.name}`}</h1>
+              <h1 className="profile__name">{currentUser.name}</h1>
               <button
                 className="profile__edit-button"
                 type="button"
@@ -32,7 +26,7 @@ function Main(props) {
               >
               </button>
             </div>
-            <p className="profile__activity">{`${currentUser.about}`}</p>
+            <p className="profile__activity">{currentUser.about}</p>
           </div>
         </div>
         <button

@@ -8,9 +8,8 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import ImagePopup from './ImagePopup.js';
-import api from '../utils/Api.js';
+import api from '../utils/api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -23,21 +22,14 @@ function App() {
   const [cards, setCards] = React.useState([]);
 
   useEffect(()=>{
-    api.getUserInfo()
-      .then((userData) => {
+    api.getUserData()
+      .then(([userData, cardsData]) => {
         setCurrentUser(userData);
-    }).catch((err) => {
-      console.log(err);
-    });
-  }, []);
-
-  useEffect(()=>{
-    api.getCard()
-      .then((cardsData) => {
         setCards(cardsData);
-    }).catch((err) => {
-      console.log(err);
-    });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   function handleEditProfileClick() {
@@ -70,22 +62,22 @@ function App() {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     
     api.changeLikeCardStatus(card._id, isLiked)
-    .then((newCard) => {
-      setCards(cards.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
-    },
-    (err) => {
-      console.log(err);
-    });
+      .then((newCard) => {
+        setCards(cards.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
-    .then(() => {
-      setCards(cards.filter((currentCard) => currentCard !== card));
-    },
-    (err) => {
-      console.log(err);
-    });
+      .then(() => {
+        setCards(cards.filter((currentCard) => currentCard._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleCardClick (card) {
@@ -94,31 +86,34 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-      api.setUserInfo(data)
-        .then((userData) => {
-          setCurrentUser(userData);
-          closeAllPopups();
-      }).catch((err) => {
+    api.setUserInfo(data)
+      .then((userData) => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
         console.log(err);
       });
   }
 
   function handleUpdateAvatar(data) {
-      api.setUserAvatar(data)
-        .then((userData) => {
-          setCurrentUser(userData);
-          closeAllPopups();
-      }).catch((err) => {
+    api.setUserAvatar(data)
+      .then((userData) => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
         console.log(err);
       });
   }
 
   function handleAddPlaceSubmit(data) {
-      api.addCard(data)
-        .then((newCard) => {
-          setCards([newCard, ...cards]);
-          closeAllPopups();
-      }).catch((err) => {
+    api.addCard(data)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
         console.log(err);
       });
   }
