@@ -20,6 +20,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [submitButtonText, setSubmitButtonText] = React.useState('Сохранить');
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
@@ -81,6 +82,7 @@ function App() {
   }
 
   function handleUpdateUser(data) {
+    renderLoading(true);
     api.setUserInfo(data)
       .then((userData) => {
         setCurrentUser(userData);
@@ -88,10 +90,14 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(()=>{
+        renderLoading(false);
       });
   }
 
   function handleUpdateAvatar(data) {
+    renderLoading(true);
     api.setUserAvatar(data)
       .then((userData) => {
         setCurrentUser(userData);
@@ -99,10 +105,14 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(()=>{
+        renderLoading(false);
       });
   }
 
   function handleAddPlaceSubmit(data) {
+    renderLoading(true);
     api.addCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
@@ -110,6 +120,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(()=>{
+        renderLoading(false);
       });
   }
 
@@ -121,6 +134,10 @@ function App() {
   function handleCardClickDelete(card){
     setSelectedCard(card);
   }
+
+  function renderLoading(isLoading){
+    isLoading ? setSubmitButtonText('Сохранение...') : setSubmitButtonText('Сохраненить');
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -143,18 +160,21 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          submitButtonText={submitButtonText}
         />
         
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          submitButtonText={submitButtonText}
         />
         
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
+          submitButtonText={submitButtonText}
         />
 
         <DeletePlacePopup

@@ -24,7 +24,7 @@ function AddPlacePopup(props) {
       onClose={props.onClose}
       name='addimage'
       title='Новое место'
-      buttonText='Сохранить'
+      buttonText={props.submitButtonText}
       onSubmit={handleSubmit}
     >
       <input 
