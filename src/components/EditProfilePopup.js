@@ -26,8 +26,9 @@ function EditProfilePopup(props) {
       onClose={props.onClose}
       name='profile'
       title='Редактировать профиль'
-      buttonText={props.submitButtonText}
+      buttonText='Сохранить'
       onSubmit={handleSubmit}
+      isLoading={props.isLoading}
     >
       <input 
         className="popup__input" 

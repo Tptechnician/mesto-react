@@ -26,7 +26,8 @@ function EditAvatarPopup(props) {
       onSubmit={handleSubmit}
       name='avatar'
       title='Обновить аватар'
-      buttonText={props.submitButtonText}
+      buttonText='Сохранить'
+      isLoading={props.isLoading}
     >
       <input 
         className="popup__input" 

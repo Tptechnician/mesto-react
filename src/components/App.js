@@ -17,15 +17,15 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = React.useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  const [submitButtonText, setSubmitButtonText] = React.useState('Сохранить');
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
-  
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
@@ -71,6 +71,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    setIsLoading(true);
     api.deleteCard(card._id)
       .then(() => {
         setCards(cards.filter((currentCard) => currentCard._id !== card._id));
@@ -78,11 +79,14 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(()=>{
+        setIsLoading(false);
       });
   }
 
   function handleUpdateUser(data) {
-    renderLoading(true);
+    setIsLoading(true);
     api.setUserInfo(data)
       .then((userData) => {
         setCurrentUser(userData);
@@ -92,12 +96,12 @@ function App() {
         console.log(err);
       })
       .finally(()=>{
-        renderLoading(false);
+        setIsLoading(false);
       });
   }
 
   function handleUpdateAvatar(data) {
-    renderLoading(true);
+    setIsLoading(true);
     api.setUserAvatar(data)
       .then((userData) => {
         setCurrentUser(userData);
@@ -107,12 +111,12 @@ function App() {
         console.log(err);
       })
       .finally(()=>{
-        renderLoading(false);
+        setIsLoading(false);
       });
   }
 
   function handleAddPlaceSubmit(data) {
-    renderLoading(true);
+    setIsLoading(true);
     api.addCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
@@ -122,7 +126,7 @@ function App() {
         console.log(err);
       })
       .finally(()=>{
-        renderLoading(false);
+        setIsLoading(false);
       });
   }
 
@@ -134,10 +138,6 @@ function App() {
   function handleCardClickDelete(card){
     setSelectedCard(card);
   }
-
-  function renderLoading(isLoading){
-    isLoading ? setSubmitButtonText('Сохранение...') : setSubmitButtonText('Сохраненить');
-  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -160,21 +160,21 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
-          submitButtonText={submitButtonText}
+          isLoading={isLoading}
         />
         
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
-          submitButtonText={submitButtonText}
+          isLoading={isLoading}
         />
         
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
-          submitButtonText={submitButtonText}
+          isLoading={isLoading}
         />
 
         <DeletePlacePopup
@@ -182,6 +182,7 @@ function App() {
           onClose={closeAllPopups}
           onSubmit={handleCardDelete}
           card={selectedCard}
+          isLoading={isLoading}
         />
 
         <ImagePopup

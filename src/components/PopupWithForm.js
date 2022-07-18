@@ -18,7 +18,9 @@ function PopupWithForm(props) {
           onSubmit={props.onSubmit}
         >
           {props.children}
-          <button className="popup__save" type="submit">{props.buttonText}</button>
+          <button className="popup__save" type="submit">
+            {props.isLoading ? 'Сохранение...' : props.buttonText}
+          </button>
         </form>
       </div>
     </div>
