@@ -1,8 +1,13 @@
 import React from 'react';
+import Popup from './Popup.js';
 
 function PopupWithForm(props) {
   return (
-    <div className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
+    <Popup
+      name={props.name}
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+    >
       <div className="popup__content">
         <button 
           className="popup__close"
@@ -23,7 +28,7 @@ function PopupWithForm(props) {
           </button>
         </form>
       </div>
-    </div>
+    </Popup>
   );
 }
 
