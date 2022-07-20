@@ -1,8 +1,14 @@
 import React from 'react';
+import Popup from './Popup.js';
 
 function ImagePopup(props) {
   return (
-    <div className={`popup popup_type_viewimage popup_type_background ${props.isOpen ? 'popup_opened' : ''}`}>
+    <Popup
+      name='viewimage'
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      modifier='popup_type_background'
+    >
       <div className="popup__wrapper">
         <img 
           className="popup__image"
@@ -17,7 +23,7 @@ function ImagePopup(props) {
         </button>
         <h3 className="popup__title popup__title_viewimage">{props.card.name}</h3>
       </div>
-    </div>
+    </Popup>
   );
 }
 

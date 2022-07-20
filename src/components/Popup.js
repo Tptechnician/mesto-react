@@ -22,7 +22,7 @@ function Popup(props) {
   return (
     <div
       onClick={handleClickClose}
-      className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}
+      className={`popup popup_type_${props.name} ${props.modifier} ${props.isOpen ? 'popup_opened' : ''}`}
     >
       {props.children}
     </div>
