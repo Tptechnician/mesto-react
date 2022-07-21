@@ -19,4 +19,3 @@ export function FormValidator() {
   }
     return {values, errors, isValid, resetErrors, handleChange, setValues}
 }
-  

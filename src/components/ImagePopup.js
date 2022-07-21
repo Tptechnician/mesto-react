@@ -7,7 +7,7 @@ function ImagePopup(props) {
       name='viewimage'
       isOpen={props.isOpen}
       onClose={props.onClose}
-      modifier='popup_type_background'
+      modification='popup_type_background'
     >
       <div className="popup__wrapper">
         <img 
