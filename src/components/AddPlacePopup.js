@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm.js';
+import { FormValidator } from './FormValidator.js';
 
 function AddPlacePopup(props) {
-  const [formValues, setFormValues] = useState({name: '', link: ''});
-
-  function handleChange(e) {
-    const {name, value} = e.target;
-    setFormValues(prevState => ({ ...prevState, [name]: value }));
-  }
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    props.onAddPlace(formValues);
-  }
+  const {values, isValid, errors, resetErrors, handleChange} = FormValidator({});
 
   useEffect(() => {
-    setFormValues({name: '', link: ''});
+    resetErrors();
   }, [props.isOpen]);
+
+  
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    props.onAddPlace(values);
+  }
 
   return (
     <PopupWithForm
@@ -29,7 +26,7 @@ function AddPlacePopup(props) {
       isLoading={props.isLoading}
     >
       <input 
-        className="popup__input" 
+        className={`popup__input ${errors.name ? 'popup__input_type_error' : ''}`}
         type="text" 
         name="name"
         id="input-title"
@@ -37,21 +34,25 @@ function AddPlacePopup(props) {
         minLength="2"
         maxLength="30"
         required
-        value={formValues.name || ''}
+        value={values.name || ''}
         onChange={handleChange}
       />
-      <span className="popup__form-error" id="input-title-error"></span>
+      <span className="popup__form-error" id="input-title-error">
+        {isValid ? '' : errors.name}
+      </span>
       <input 
-        className="popup__input" 
+        className={`popup__input ${errors.link ? 'popup__input_type_error' : ''}`} 
         type="url" 
         name="link" 
         id="input-link"
         placeholder="Ссылка на картинку"
         required
-        value={formValues.link || ''}
+        value={values.link || ''}
         onChange={handleChange}
       />
-      <span className="popup__form-error" id="input-link-error"></span>
+      <span className="popup__form-error" id="input-link-error">
+        {isValid ? '' : errors.link}
+      </span>
     </PopupWithForm>
   );
 }
