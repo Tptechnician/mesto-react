@@ -24,6 +24,7 @@ function AddPlacePopup(props) {
       buttonText='Сохранить'
       onSubmit={handleSubmit}
       isLoading={props.isLoading}
+      isDisabled={isValid}
     >
       <input 
         className={`popup__input ${errors.name ? 'popup__input_type_error' : ''}`}

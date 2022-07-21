@@ -15,6 +15,7 @@ function DeletePlacePopup(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}
       isLoading={props.isLoading}
+      isDisabled={true}
       name='delete'
       title='Вы уверены?'
       buttonText='Да'

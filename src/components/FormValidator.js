@@ -4,9 +4,6 @@ export function FormValidator() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
-  console.log(values);
-  console.log(errors);
-  console.log(isValid);
 
   function handleChange(e) {
     const {name, value} = e.target;
